@@ -1,0 +1,22 @@
+<template>
+    <tr>
+
+        <td>
+            <au-autocomplete value.bind="Product" error.bind="error.Product" loader.bind="productLoader" placeholder="search product from list"
+                key="Name" text="Name" read-only.bind="(readOnly)" options.bind="controlOptions">
+            </au-autocomplete>
+        </td>
+        <td>
+            <au-numeric value.bind="data.TaxCode" error.bind="error.TaxCode" read-only.bind="true"></au-numeric>
+        </td>
+        <td>
+            <au-textbox value.bind="data.Type" error.bind="error.Type" read-only.bind="true"></au-textbox>
+        </td>
+        <td>
+            <au-numeric value.bind="data.Amount" error.bind="error.Amount" read-only.bind="false"></au-numeric>
+        </td>
+        <td if.bind="!options.readOnly">
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+        </td>
+    </tr>
+</template>

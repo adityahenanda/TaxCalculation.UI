@@ -1,0 +1,64 @@
+<template>
+  <h1 class="page-header">TAX CALCULATION</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
+
+        <p>Create Product</p>
+        <au-textbox label="Name" value.bind="data.Name" error.bind="error.Name"></au-textbox>
+
+        <au-dropdown label="Tax Code" value.bind="data.TaxCode" error.bind="error.TaxCode" items.bind="taxCode"></au-dropdown>
+
+
+        <template replaceable part="actions"></template>
+      </au-input-form>
+
+      <block>
+        <hr/>
+        <div class="btn-group pull-right">
+          <button class="btn btn-success" click.delegate="createProduct()">Create</button>
+        </div>
+      </block>
+
+    </div>
+  </div>
+
+  <h1>List Product</h1>
+  <p>*press show button to get list of products</p>
+  <block>
+    <hr/>
+    <div class="btn-group pull-right">
+      <button class="btn btn-success" click.delegate="showProduct()">Show</button>
+    </div>
+  </block>
+  <au-table data.bind="loader" columns.bind="columnsProduct" view-model.ref="productTable" sortable.bind="false" page-size="25"
+    context.bind="context" options.bind="tableOptions">
+  </au-table>
+
+  <br></br>
+  <p>Input Product</p>
+  <p>*input product name from listed product, press + button to add more product</p>
+  <au-collection columns.bind="items.columns" items.bind="data.items" errors.one-way="error.items" add.bind="items.onAdd"
+    read-only.bind="readOnly" item-template="modules/master/TaxCalculation/Template/item">
+  </au-collection>
+
+  <block>
+    <hr/>
+    <p>*press submit button to calculate</p>
+    <div class="btn-group pull-right">
+      <button class="btn btn-success" click.delegate="submit()">Submit</button>
+    </div>
+  </block>
+
+  <br></br>
+  <p>Tax Calculation</p>
+  <au-table data.bind="taxLoader" columns.bind="columnsTaxCalculation" sortable.bind="false" page-size="25" context.bind="context"
+    options.bind="tableOptions"  view-model.ref="taxCalculationTable" context-click.delegate="contextCallback($event)">
+  </au-table>
+
+  <p>*TotalTaxAmount: ${TotalTaxAmount}</p>
+  <p>*TotalAmount: ${TotalAmount}</p>
+  <p>*GrandTotal: ${GrandTotal}</p>
+
+</template>
